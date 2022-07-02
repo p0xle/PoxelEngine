@@ -1,0 +1,16 @@
+﻿[*.{cs,vb}]
+
+# IDE0003: Qualifizierung entfernen
+dotnet_style_qualification_for_property = true
+
+# IDE0003: Qualifizierung entfernen
+dotnet_style_qualification_for_method = true
+
+# IDE0003: Qualifizierung entfernen
+dotnet_style_qualification_for_event = true
+
+# IDE0003: Qualifizierung entfernen
+dotnet_style_qualification_for_field = true
+
+# IDE0009: Der Memberzugriff sollte qualifiziert sein.
+dotnet_diagnostic.IDE0009.severity = suggestion

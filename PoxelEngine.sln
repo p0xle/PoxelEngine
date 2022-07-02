@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoxelEngine", "PoxelEngine\PoxelEngine.csproj", "{A5C1BB42-89B7-4F8A-8EC7-AC9CCCF62DC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86591F45-3DEF-44F4-B258-9D5FC68E7AB9}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTest", "ConsoleApp1\EngineTest.csproj", "{B41EBC38-F7E1-4ED0-8F41-C37ABB7D3717}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5C1BB42-89B7-4F8A-8EC7-AC9CCCF62DC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C1BB42-89B7-4F8A-8EC7-AC9CCCF62DC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C1BB42-89B7-4F8A-8EC7-AC9CCCF62DC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C1BB42-89B7-4F8A-8EC7-AC9CCCF62DC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B41EBC38-F7E1-4ED0-8F41-C37ABB7D3717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41EBC38-F7E1-4ED0-8F41-C37ABB7D3717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41EBC38-F7E1-4ED0-8F41-C37ABB7D3717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41EBC38-F7E1-4ED0-8F41-C37ABB7D3717}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC39E292-9D1A-48FB-BAD0-118FC96DC702}
+	EndGlobalSection
+EndGlobal
