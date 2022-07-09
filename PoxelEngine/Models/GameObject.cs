@@ -1,4 +1,5 @@
-﻿using PoxelEngine.Utility;
+﻿using PoxelEngine.Components;
+using PoxelEngine.Utility;
 using System;
 using System.Collections.Generic;
 
@@ -30,8 +31,20 @@ namespace PoxelEngine.Models
 
         protected bool disposedValue;
 
+        protected virtual bool Initialize()
+        {
+            if (!this.LoadCollisionComponent())
+                return false;
+
+            this.RegisterSelf();
+            return true;
+        }
+
         public Component GetComponent(Type type)
         {
+            if (!type.IsSubclassOf(typeof(Component)))
+                return null;
+
             foreach (var component in this.Components)
             {
                 if (type == component.GetType())
@@ -42,7 +55,7 @@ namespace PoxelEngine.Models
 
             return null;
         }
-        public Component GetComponent<T>() where T : Component
+        public T GetComponent<T>() where T : Component
         {
             foreach (var item in this.Components)
             {
@@ -116,6 +129,15 @@ namespace PoxelEngine.Models
             }
         }
 
+        public bool LoadComponent(Component component)
+        {
+            if (!this.InitComponent(component))
+                return false;
+
+            this.AddComponent(component);
+            return true;
+        }
+
         protected bool InitComponent(Component component)
         {
             if (!component.Init())
@@ -142,6 +164,17 @@ namespace PoxelEngine.Models
                 this.Components = null;
                 this.disposedValue = true;
             }
+        }
+
+        private bool LoadCollisionComponent()
+        {
+            var component = new CollisionComponent(this);
+
+            if (!this.InitComponent(component))
+                return false;
+
+            this.AddComponent(component);
+            return true;
         }
 
         public void Dispose()

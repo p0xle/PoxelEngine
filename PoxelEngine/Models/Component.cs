@@ -1,21 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PoxelEngine.Models
 {
     public abstract class Component : IDisposable
     {
-        public Component(GameObject gameObject, Transform transform)
+        public Component(GameObject gameObject)
         {
             this.GameObject = gameObject;
-            this.Transform = transform;
+            this.Transform = gameObject?.Transform;
         }
 
         public GameObject GameObject { get; set; }
-        public Transform Transform { get; set; }
+        public Transform Transform 
+        { 
+            get => this.GameObject?.Transform;
+            set 
+            { 
+                if (this.GameObject != null) 
+                    this.GameObject.Transform = value; 
+            }
+        }
 
         public string Tag
         {
@@ -27,7 +31,7 @@ namespace PoxelEngine.Models
 
         public abstract bool Init();
         public abstract void Update();
-        public abstract void Dispose(bool disposing);
+        protected abstract void Dispose(bool disposing);
 
         public Component GetComponent(Type type)
         {
@@ -45,7 +49,7 @@ namespace PoxelEngine.Models
         public void Dispose()
         {
             this.Dispose(disposing: true);
-            //GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
     }
 }
