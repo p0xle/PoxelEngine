@@ -46,10 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Demo Game\Components\CoinComponent.cs" />
+    <Compile Include="Demo Game\Components\InputComponent.cs" />
     <Compile Include="Demo Game\Components\MoveComponent.cs" />
-    <Compile Include="Demo Game\Components\SpriteComponent.cs" />
     <Compile Include="Demo Game\DemoGame.cs" />
-    <Compile Include="Demo Game\Player.cs" />
+    <Compile Include="Demo Game\Models\Player.cs" />
+    <Compile Include="Demo Game\Models\Scene.cs" />
+    <Compile Include="Demo Game\Models\UIObject.cs" />
     <Compile Include="Models\Directions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +67,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Sprites\bus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sprites\coin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sprites\ground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Sprites\player.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
