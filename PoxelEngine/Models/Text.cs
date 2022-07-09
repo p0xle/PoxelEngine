@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace PoxelEngine.Models
 {
@@ -29,15 +24,12 @@ namespace PoxelEngine.Models
             return text;
         }
 
-        private bool Initialize()
+        private new bool Initialize()
         {
-            var textRenderer = new TextRenderer(this);
-
-            if (!this.InitComponent(textRenderer))
+            if (this.LoadComponent(new TextRenderer(this)))
                 return false;
 
-            this.AddComponent(textRenderer);
-            return true;
+            return base.Initialize();
         }
 
         public string Content { get; set; }
@@ -61,7 +53,7 @@ namespace PoxelEngine.Models
 
     public class TextRenderer : Component
     {
-        public TextRenderer(GameObject parent) : base(parent, parent.Transform)
+        public TextRenderer(GameObject parent) : base(parent)
         {
 
         }
@@ -76,13 +68,12 @@ namespace PoxelEngine.Models
             if (this.GameObject is Text textObject)
             {
                 var graphics = Engine.GetGraphics();
-                //var tmp = FontFamily.GetFamilies(graphics);
                 graphics.DrawString(textObject.Content, textObject.Font, new SolidBrush(textObject.Color),
                     this.Transform.Position.X, this.Transform.Position.Y);
             }
         }
 
-        public override void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!this.disposedValue)
             {
