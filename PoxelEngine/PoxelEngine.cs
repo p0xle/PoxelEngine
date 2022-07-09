@@ -12,7 +12,7 @@ namespace PoxelEngine
 {
     public abstract class Engine : IDisposable
     {
-        public Engine(Vector2 screenSize, string title, bool isDebug = false)
+        public Engine(Size screenSize, string title, bool isDebug = false)
         {
             Log.Info("[ENGINE] - Engine is starting...");
 
@@ -23,7 +23,7 @@ namespace PoxelEngine
 
             this.Window = new Canvas
             {
-                Size = new Size((int)this.ScreenSize.X, (int)this.ScreenSize.Y),
+                Size = this.ScreenSize,
                 Text = this.Title,
                 FormBorderStyle = FormBorderStyle.FixedToolWindow,
             };
@@ -49,8 +49,9 @@ namespace PoxelEngine
         public float CameraAngle = 0f;
 
         private static List<GameObject> GameObjects = new List<GameObject>();
+        private static List<int> LayerList = new List<int>();
 
-        private readonly Vector2 ScreenSize = new Vector2(600, 600);
+        private readonly Size ScreenSize = new Size(600, 600);
         private readonly string Title = "Game";
         private readonly Canvas Window = null;
         private readonly Thread GameThread = null;
@@ -66,13 +67,36 @@ namespace PoxelEngine
         public static void RegisterGameObject(GameObject gameObject)
         {
             GameObjects.Add(gameObject);
-            Log.Info($"[ENGINE]- ({gameObject.Tag}) has been registered!");
+            Log.Info($"[ENGINE] - ({gameObject.Tag}) has been registered!");
+
+            if (!LayerList.Contains(gameObject.Transform.Layer))
+            {
+                LayerList.Add(gameObject.Transform.Layer);
+                LayerList = LayerList.OrderBy(o => o).ToList();
+                Log.Info($"[ENGINE]({gameObject.Tag}) - Layer {gameObject.Transform.Layer} has been registered!");
+            }
         }
 
         public static void UnregisterGameObject(GameObject gameObject)
         {
             GameObjects.Remove(gameObject);
-            Log.Info($"[ENGINE] - ({gameObject.Tag}) has been destoryed!");
+            Log.Info($"[ENGINE] - ({gameObject.Tag}) has been destroyed!");
+
+            if (GameObjects.FirstOrDefault(w => w.Transform.Layer == gameObject.Transform.Layer) is null)
+            {
+                LayerList.Remove(gameObject.Transform.Layer);
+                Log.Info($"[ENGINE]({gameObject.Tag}) - Layer {gameObject.Transform.Layer} has been removed!");
+            }
+        }
+
+        public static GameObject GetGameObject(string tag)
+        {
+            return GameObjects.FirstOrDefault(w => w.Tag == tag);
+        }
+
+        public static List<GameObject> GetGameObjects(string tag)
+        {
+            return GameObjects.Where(w => w.Tag == tag).ToList();
         }
 
         public static Graphics GetGraphics()
@@ -124,9 +148,10 @@ namespace PoxelEngine
             // If Collections are changed while they are rendered it throws an Error
             try
             {
-                foreach (var layer in GameObjects.Select(s => s.Transform.Layer).OrderBy(o => o))
+                // Don't use order by in here because it create a lot of performance issues
+                foreach (var layer in LayerList)
                 {
-                    // Todo: Create Renderer Component automatically added to GameObjects
+                    // Todo: Where could result in performance issues here, maybe order it earlier so there is a list per layer
                     foreach (var gameObject in GameObjects.Where(w => w.Transform.Layer == layer))
                     {
                         gameObject?.Update();
