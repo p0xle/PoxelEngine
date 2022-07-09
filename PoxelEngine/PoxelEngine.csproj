@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\CollisionComponent.cs" />
+    <Compile Include="Components\SpriteComponent.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\Text.cs" />
