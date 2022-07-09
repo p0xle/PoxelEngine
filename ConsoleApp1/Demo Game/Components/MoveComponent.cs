@@ -1,5 +1,7 @@
 ﻿using EngineTest.Models;
+using PoxelEngine.Components;
 using PoxelEngine.Models;
+using PoxelEngine.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace EngineTest.Demo_Game.Components
 {
     public class MoveComponent : Component
     {
-        public MoveComponent(GameObject parent, float speed, Directions directions) : base(parent, parent.Transform)
+        public MoveComponent(GameObject parent, float speed, Directions directions) : base(parent)
         {
             this.Speed = speed;
             this.Directions = directions;
@@ -25,24 +27,39 @@ namespace EngineTest.Demo_Game.Components
 
         public override void Update()
         {
+            var collisionComponent = this.GameObject?.GetComponent<CollisionComponent>();
+            if (collisionComponent is null)
+            {
+                Log.Error($"[{nameof(MoveComponent)}]({this.Tag}) - No {nameof(CollisionComponent)} found");
+                return;
+            }
+
             if (this.Directions.Up)
             {
                 this.Transform.Translate(new Vector2(0, -this.Speed));
+                if (collisionComponent.IsColliding("Ground") != null)
+                    this.Transform.Translate(new Vector2(0, this.Speed));
             }
             if (this.Directions.Down)
             {
                 this.Transform.Translate(new Vector2(0, this.Speed));
+                if (collisionComponent.IsColliding("Ground") != null)
+                    this.Transform.Translate(new Vector2(0, -this.Speed));
             }
             if (this.Directions.Left)
             {
                 this.Transform.Translate(new Vector2(-this.Speed, 0));
+                if (collisionComponent.IsColliding("Ground") != null)
+                    this.Transform.Translate(new Vector2(this.Speed, 0));
             }
             if (this.Directions.Right)
             {
                 this.Transform.Translate(new Vector2(this.Speed, 0));
+                if (collisionComponent.IsColliding("Ground") != null)
+                    this.Transform.Translate(new Vector2(-this.Speed, 0));
             }
         }
 
-        public override void Dispose(bool disposing) { }
+        protected override void Dispose(bool disposing) { }
     }
 }
