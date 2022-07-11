@@ -1,13 +1,8 @@
 ﻿using EngineTest.Demo_Game.Components;
 using PoxelEngine.Models;
 using PoxelEngine.Utility;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EngineTest.Demo_Game.Models
 {
@@ -24,7 +19,9 @@ namespace EngineTest.Demo_Game.Models
 
         public Player Player { get; set; }
 
+        // Todo: Implement IDisposable to Dispose of References for Sprites
         private UIObject groundRef;
+        private UIObject coinRef;
 
         public void Load()
         {
@@ -35,6 +32,7 @@ namespace EngineTest.Demo_Game.Models
                 Log.Error($"[{nameof(Scene)}]({nameof(Load)}) - Error loading the Player Coin Component");
 
             this.groundRef = UIObject.CreateReference("ground");
+            this.coinRef = UIObject.CreateReference("coin");
 
             int groundCount = 0;
 
@@ -50,7 +48,7 @@ namespace EngineTest.Demo_Game.Models
 
                     if (this.Settings.Map[j, i] == "c")
                     {
-                        UIObject.Create(tag: "Coin", name: $"Coin_{coinComponent.Coins}", transform: this.GetMapTransform(i, j, layer: 1), "coin");
+                        UIObject.Create(tag: "Coin", name: $"Coin_{coinComponent.Coins}", transform: this.GetMapTransform(i, j, layer: 1), reference: this.coinRef);
                         coinComponent.Coins++;
                     }
 
@@ -64,6 +62,9 @@ namespace EngineTest.Demo_Game.Models
                     {
                         this.Player.Transform = this.GetMapTransform(i, j, 48, 48, 2);
                     }
+
+                    // Todo: Button loading
+                    // Todo: Customizable Map Definitions (Dictionary with Key and delegate to call if key is specified in map)
                 }
             }
         }
