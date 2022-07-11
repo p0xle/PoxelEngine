@@ -53,7 +53,7 @@
     <Compile Include="Demo Game\Models\Player.cs" />
     <Compile Include="Demo Game\Models\Scene.cs" />
     <Compile Include="Demo Game\Models\UIObject.cs" />
-    <Compile Include="Models\Directions.cs" />
+    <Compile Include="Demo Game\Models\Directions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
