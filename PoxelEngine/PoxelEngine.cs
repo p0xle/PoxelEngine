@@ -12,6 +12,11 @@ namespace PoxelEngine
 {
     public abstract class Engine : IDisposable
     {
+        // Todo: SoundManager
+        // Todo: Click Events need to be passed down
+        // Todo: Check if the accessor make sense for the fields and properties
+        // Todo: Dispose 
+
         public Engine(Size screenSize, string title, bool isDebug = false)
         {
             Log.Info("[ENGINE] - Engine is starting...");
@@ -146,13 +151,15 @@ namespace PoxelEngine
             graphics.ScaleTransform(this.CameraZoom.X, this.CameraZoom.Y);
 
             // If Collections are changed while they are rendered it throws an Error
+            // Edit: Using new List now to avoid collection changes while enumerating. Performance Overhead should be negligible
+            // Keeping try catch for now just to be safe since the application shouldn't crash due to a render error
             try
             {
                 // Don't use order by in here because it create a lot of performance issues
-                foreach (var layer in LayerList)
+                foreach (var layer in new List<int>(LayerList))
                 {
                     // Todo: Where could result in performance issues here, maybe order it earlier so there is a list per layer
-                    foreach (var gameObject in GameObjects.Where(w => w.Transform.Layer == layer))
+                    foreach (var gameObject in new List<GameObject>(GameObjects).Where(w => w.Transform.Layer == layer))
                     {
                         gameObject?.Update();
                     }
@@ -213,6 +220,8 @@ namespace PoxelEngine
 
         public void Dispose()
         {
+            // Dispose should also call an abstract ChildDispose Method to handle further Dispose Logic
+
             foreach (var gameObject in GameObjects)
             {
                 gameObject?.Dispose();
