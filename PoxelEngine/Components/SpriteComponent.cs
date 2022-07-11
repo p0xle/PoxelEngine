@@ -15,10 +15,13 @@ namespace PoxelEngine.Components
         public SpriteComponent(GameObject parent, Image reference) : base(parent)
         {
             this.Sprite = reference;
+            this.isRef = true;
         }
 
         public Image Sprite { get; set; }
         public string Path { get; set; }
+
+        private bool isRef = false;
 
         public override void Update()
         {
@@ -44,7 +47,7 @@ namespace PoxelEngine.Components
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposedValue)
+            if (!this.disposedValue && !this.isRef)
             {
                 if (disposing)
                 {
