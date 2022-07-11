@@ -9,7 +9,7 @@ namespace EngineTest.Demo_Game
 {
     class DemoGame : Engine
     {
-        public DemoGame() : base(screenSize: new Size(windowWidth, windowHeight), title: title, isDebug: false) { }
+        public DemoGame() : base(screenSize: new Size(windowWidth, windowHeight), title: title, isDebug: true) { }
 
         private const string title = "Engine Demo Game";
 
