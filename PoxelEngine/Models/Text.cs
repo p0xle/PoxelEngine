@@ -32,6 +32,11 @@ namespace PoxelEngine.Models
             return base.Initialize();
         }
 
+        protected override void DisposeAC()
+        {
+            this.Font.Dispose();
+        }
+
         public string Content { get; set; }
         public Font Font { get; set; }
         public Color Color { get; set; }

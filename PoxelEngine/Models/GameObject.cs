@@ -113,11 +113,7 @@ namespace PoxelEngine.Models
         public void DestroySelf()
         {
             Engine.UnregisterGameObject(this);
-
-            foreach (var component in this.Components)
-            {
-                component.Dispose();
-            }
+            this.Dispose();
         }
 
         /// <summary>Calls the <see cref="Component.Update">Update</see> method for every added <see cref="Component"/></summary>
@@ -149,7 +145,9 @@ namespace PoxelEngine.Models
             return true;
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected abstract void DisposeAC();
+
+        private void Dispose(bool disposing)
         {
             if (!this.disposedValue)
             {
@@ -159,6 +157,8 @@ namespace PoxelEngine.Models
                     {
                         component?.Dispose();
                     }
+
+                    this.DisposeAC();
                 }
 
                 this.Components = null;
@@ -180,7 +180,7 @@ namespace PoxelEngine.Models
         public void Dispose()
         {
             this.Dispose(disposing: true);
-            //GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
     }
 }

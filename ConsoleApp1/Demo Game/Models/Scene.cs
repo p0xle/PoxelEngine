@@ -1,11 +1,14 @@
 ﻿using EngineTest.Demo_Game.Components;
 using PoxelEngine.Models;
 using PoxelEngine.Utility;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 
 namespace EngineTest.Demo_Game.Models
 {
+    // Todo: Make Scene a abstract Engine Class
     public class Scene : GameObject
     {
         public Scene(SceneSettings settings, string tag) : this(settings, tag, new Transform()) { }
@@ -22,6 +25,8 @@ namespace EngineTest.Demo_Game.Models
         // Todo: Implement IDisposable to Dispose of References for Sprites
         private UIObject groundRef;
         private UIObject coinRef;
+
+        private List<GameObject> objects = new List<GameObject>();
 
         public void Load()
         {
@@ -42,20 +47,20 @@ namespace EngineTest.Demo_Game.Models
                 {
                     if (this.Settings.Map[j, i] == "g")
                     {
-                        UIObject.Create(tag: "Ground", name: $"Ground_{groundCount}", transform: this.GetMapTransform(i, j, layer: 0), reference: this.groundRef);
+                        this.objects.Add(UIObject.Create(tag: "Ground", name: $"Ground_{groundCount}", transform: this.GetMapTransform(i, j, layer: 0), reference: this.groundRef));
                         groundCount++;
                     }
 
                     if (this.Settings.Map[j, i] == "c")
                     {
-                        UIObject.Create(tag: "Coin", name: $"Coin_{coinComponent.Coins}", transform: this.GetMapTransform(i, j, layer: 1), reference: this.coinRef);
+                        this.objects.Add(UIObject.Create(tag: "Coin", name: $"Coin_{coinComponent.Coins}", transform: this.GetMapTransform(i, j, layer: 1), reference: this.coinRef));
                         coinComponent.Coins++;
                     }
 
                     if (this.Settings.Map[j, i] == "t")
                     {
-                        Text.Create(content: "Test", transform: this.GetMapTransform(i, j, 100, 100, layer: 10), "TestText",
-                            new FontOptions(family: new FontFamily("Comic Sans MS"), style: FontStyle.Underline));
+                        this.objects.Add(Text.Create(content: "Test", transform: this.GetMapTransform(i, j, 100, 100, layer: 10), "TestText",
+                            new FontOptions(family: new FontFamily("Comic Sans MS"), style: FontStyle.Underline)));
                     }
 
                     if (this.Settings.Map[j, i] == "p")
@@ -75,9 +80,16 @@ namespace EngineTest.Demo_Game.Models
                 new Vector2(i * this.Settings.groundSize, j * this.Settings.groundSize),
                 new Vector2(sizeX ?? this.Settings.groundSize, sizeY ?? this.Settings.groundSize), layer);
         }
+
+        protected override void DisposeAC()
+        {
+            this.Player.DestroySelf();
+            this.groundRef.DestroySelf();
+            this.coinRef.DestroySelf();
+        }
     }
 
-    public class SceneSettings
+    public struct SceneSettings
     {
         public int groundSize;
         public string[,] Map;

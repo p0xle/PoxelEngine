@@ -32,6 +32,11 @@ namespace EngineTest.Demo_Game
             return base.Initialize();
         }
 
+        protected override void DisposeAC()
+        {
+
+        }
+
         public float Speed;
         public Directions Directions = new Directions();
     }

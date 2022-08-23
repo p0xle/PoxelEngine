@@ -94,6 +94,12 @@ namespace PoxelEngine
             }
         }
 
+        public static void ClearGameObjects()
+        {
+            GameObjects.Clear();
+            Log.Info($"[ENGINE] - GameObjects have been cleared");
+        }
+
         public static GameObject GetGameObject(string tag)
         {
             return GameObjects.FirstOrDefault(w => w.Tag == tag);
@@ -224,7 +230,7 @@ namespace PoxelEngine
 
             foreach (var gameObject in GameObjects)
             {
-                gameObject?.Dispose();
+                gameObject?.DestroySelf();
             }
 
             GameObjects = new List<GameObject>();

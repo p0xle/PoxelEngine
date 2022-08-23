@@ -49,5 +49,9 @@ namespace EngineTest.Demo_Game.Models
 
             return base.Initialize();
         }
+
+        protected override void DisposeAC()
+        {
+        }
     }
 }
