@@ -57,6 +57,9 @@ namespace PoxelEngine.Models
         }
         public T GetComponent<T>() where T : Component
         {
+            if (this.Components is null)
+                return default;
+
             foreach (var item in this.Components)
             {
                 if (item.GetType() == typeof(T))
@@ -65,7 +68,7 @@ namespace PoxelEngine.Models
                 }
             }
 
-            return null;
+            return default;
         }
 
         /// <summary>Compares the <see cref="GameObject.Tag">tag</see> to another specified tag</summary>

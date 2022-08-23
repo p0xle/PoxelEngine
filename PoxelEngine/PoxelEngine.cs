@@ -43,6 +43,7 @@ namespace PoxelEngine
             this.GameThread.Start();
 
             Application.Run(this.Window);
+            this.Window.Focus();
         }
 
         public const string root = "Assets/Sprites";
@@ -228,8 +229,9 @@ namespace PoxelEngine
         {
             // Dispose should also call an abstract ChildDispose Method to handle further Dispose Logic
 
-            foreach (var gameObject in GameObjects)
+            for (int i = GameObjects.Count - 1; i >= 0; i--)
             {
+                GameObject gameObject = GameObjects[i];
                 gameObject?.DestroySelf();
             }
 
