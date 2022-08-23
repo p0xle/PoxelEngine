@@ -44,6 +44,26 @@ namespace EngineTest.Demo_Game
             return new Scene(sceneSettings, "mainScene");
         }
 
+        private Scene CreateSecondScene()
+        {
+            string[,] map = {
+                {"g", "g", "g", "g", "g", "g", "g", "g", "g", "g", "g" },
+                {"g", ".", ".", ".", ".", ".", ".", ".", ".", ".", "g" },
+                {"g", ".", "g", "c", "c", "g", "g", "g", "g", ".", "g" },
+                {"g", ".", "g", "c", "c", "g", "c", "c", "g", ".", "g" },
+                {"g", ".", "g", "g", "g", "g", "c", "c", "g", ".", "g" },
+                {"g", ".", ".", ".", ".", "g", ".", "g", "g", ".", "g" },
+                {"g", ".", "g", "g", "c", "g", ".", ".", "g", ".", "g" },
+                {"g", ".", "p", "g", "c", "g", "g", ".", "g", ".", "g" },
+                {"g", ".", "g", "g", "g", "g", ".", ".", "g", ".", "g" },
+                {"g", ".", ".", "c", "c", "g", ".", ".", ".", ".", "g" },
+                {"g", "g", "g", "g", "g", "g", "g", "g", "g", "g", "g" },
+            };
+
+            var sceneSettings = new SceneSettings(map);
+            return new Scene(sceneSettings, "mainScene");
+        }
+
         public override void OnDraw()
         {
 
@@ -57,8 +77,12 @@ namespace EngineTest.Demo_Game
                 if (coinComponent.Coins <= 0)
                 {
                     Log.Info($"[{nameof(DemoGame)}] - All coins collected.. Congratulations!");
+                    
+                    this.CurrentScene.DestroySelf();
+                    ClearGameObjects();
 
-                    // Todo: Load next Scene
+                    this.CurrentScene = this.CreateSecondScene();
+                    this.CurrentScene.Load();
                 }
             }
         }
