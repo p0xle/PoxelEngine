@@ -17,18 +17,18 @@ namespace PoxelEngine
         // Todo: Check if the accessor make sense for the fields and properties
         // Todo: Dispose 
 
-        public Engine(Size screenSize, string title, bool isDebug = false)
+        public Engine(Size _screenSize, string title, bool isDebug = false)
         {
             Log.Info("[ENGINE] - Engine is starting...");
 
-            this.ScreenSize = screenSize;
+            screenSize = _screenSize;
             this.Title = title;
 
             this.IsDebug = isDebug;
 
             this.Window = new Canvas
             {
-                Size = this.ScreenSize,
+                Size = screenSize,
                 Text = this.Title,
                 FormBorderStyle = FormBorderStyle.FixedToolWindow,
             };
@@ -57,7 +57,6 @@ namespace PoxelEngine
         private static List<GameObject> GameObjects = new List<GameObject>();
         private static List<int> LayerList = new List<int>();
 
-        private readonly Size ScreenSize = new Size(600, 600);
         private readonly string Title = "Game";
         private readonly Canvas Window = null;
         private readonly Thread GameThread = null;
@@ -69,6 +68,10 @@ namespace PoxelEngine
         private System.Timers.Timer timer;
 
         private static Graphics graphics;
+        private static Size screenSize = new Size();
+
+        public static int Width => screenSize.Width;
+        public static int Height => screenSize.Height;
 
         public static void RegisterGameObject(GameObject gameObject)
         {
@@ -244,6 +247,7 @@ namespace PoxelEngine
             this.timer.Dispose();
 
             this.Window.Dispose();
+            screenSize = Size.Empty;
 
             try
             {

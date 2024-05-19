@@ -59,7 +59,11 @@ namespace EngineTest
             Log.Write("");
             Log.Write("");
 
-            Log.Write("Zur Auswahl stehen: (1) Demo und (2) Pong");
+            Log.Write("Zur Auswahl stehen:");
+            Log.Write("(1) Demo");
+            Log.Write("(2) Starfield");
+
+            Log.Write("");
             Log.Write("Bitte geben Sie die entsprechende Zahl ein:");
         }
 

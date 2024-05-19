@@ -56,6 +56,10 @@
     <Compile Include="Demo Game\Models\Directions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Starfield\Models\StarShape.cs" />
+    <Compile Include="Starfield\Components\StarPositionComponent.cs" />
+    <Compile Include="Starfield\Models\Star.cs" />
+    <Compile Include="Starfield\Starfield.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

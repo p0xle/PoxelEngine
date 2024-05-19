@@ -50,9 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\CollisionComponent.cs" />
+    <Compile Include="Components\ShapeComponent.cs" />
     <Compile Include="Components\SpriteComponent.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\GameObject.cs" />
+    <Compile Include="Models\Shapes\Elipse.cs" />
+    <Compile Include="Models\Shapes\Rectangle.cs" />
+    <Compile Include="Models\Shapes\Shape.cs" />
     <Compile Include="Models\Text.cs" />
     <Compile Include="Models\Transform.cs" />
     <Compile Include="PoxelEngine.cs" />
